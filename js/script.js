@@ -24,7 +24,7 @@
         // SE il numero di tentativi === al numero di tentativi massimi possibili -> Finisce il gioco con messaggio all'utente 'Hai vinto'
 
 
-// Chiedo all'utente di scegliere il livello di difficoltà da 1 a 3
+// 1 - Chiedo all'utente di scegliere il livello di difficoltà da 1 a 3
 const userLevel = prompt('Inserisci un livello di difficoltà da 1 a 3');
 console.log('userLevel scelto da utente: ', userLevel);
 
@@ -45,7 +45,6 @@ switch (userLevel) {
         break;
 }
 
-console.log('gameMaxRange: ', gameMaxRange);
 
 // 2 - Genero 16 numeri casuali (bombe) nel range di numeri del livello di difficoltà scelto: 1 - gameMaxRange -> Level_1: 1-100; Level_2: 1-81; Level_3: 1-49
 const bombsNumber = 16;
@@ -60,10 +59,33 @@ while (bombsGenerated.length < bombsNumber) {
     }
 }
 
-console.log('bombsGenerated dopo while: ', bombsGenerated);
+
+// 3 - Creo variabile con il numero max di tentativi = gameMaxRange - numero bombe generate (16)
+let maxAttempts = gameMaxRange - bombsNumber;
 
 
+// Finchè il gioco non finisce:
+let isFinished = false;
+let userAttempts = [];
 
+while (!isFinished) {
+// Chiedo all'utente di inserire un numero alla volta compreso tra 1 e il gameMaxRange
+let userNumber = parseInt( prompt(`Inserisci un numero tra 1 e ${gameMaxRange} stando attento a non calpestare bombe`) );
+
+// - SE il numero corrisponde a una bomba -> finisce il gioco e comunico 'Hai perso' + 'punteggio (= tentativi senza aver calpestato una bomba)'
+if (bombsGenerated.includes(userNumber)) {
+    alert(`Hai perso! Punteggio: ${userAttempts.length}`);
+    isFinished = true;
+// - ALTRIMENTI il numero non corrisponde a una bomba e SE il numero non è ancora presente nell'array dei tentativi andati a buon fine -> ce lo pusho
+} else if (!userAttempts.includes(userNumber)) {
+        userAttempts.push(userNumber);
+        // SE il numero di tentativi === al numero di tentativi massimi possibili -> Finisce il gioco con messaggio all'utente 'Hai vinto'
+        if (userAttempts.length === maxAttempts) {
+            alert(`Hai vinto! Punteggio: ${userAttempts.length}`);        
+            isFinished = true;
+        }
+    }
+}
 
 
 // -----------------------
@@ -74,4 +96,4 @@ console.log('bombsGenerated dopo while: ', bombsGenerated);
 // Genera un numero a caso tra min e max inclusi
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
-  }
+}
