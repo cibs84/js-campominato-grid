@@ -15,7 +15,13 @@
 // 2 - Genero 16 numeri casuali (bombe) nel range di numeri del livello di difficoltà scelto: 1 - gameMaxRange -> Level_1: 1-100; Level_2: 1-81; Level_3: 1-49
 // 3 - Creo variabile con i tentativi andati a buon fine = gameMaxRange - numero bombe generate (16)
 
-
+// FASE LOGICA
+// Finchè il gioco non finisce: 
+    // Chiedo all'utente di inserire un numero alla volta
+    // - SE il numero corrisponde a una bomba -> finisce il gioco e comunico 'Hai perso' + 'punteggio (= tentativi senza aver calpestato una bomba)'
+    // - ALTRIMENTI il numero non corrisponde a una bomba
+        // Pusho il numero nell'array dei tentativi andati a buon fine controllando che quel numero non sia già presente
+        // SE il numero di tentativi === al numero di tentativi massimi possibili -> Finisce il gioco con messaggio all'utente 'Hai vinto'
 
 
 
