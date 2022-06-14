@@ -10,10 +10,12 @@
 // Altrimenti il gioco va avanti a meno di aver raggiunto il numero massimo di tentativi possibili. In questo caso il gioco finisce con un messaggio di vittoria.
 // Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha scelto un numero che non era una bomba.
 
+
 // FASE PREPARATORIA
 // 1 - Chiedo all'utente di scegliere il livello di difficoltà da 1 a 3
 // 2 - Genero 16 numeri casuali (bombe) nel range di numeri del livello di difficoltà scelto. Range: 1 - gameMaxRange -> Level_1: 1-100; Level_2: 1-81; Level_3: 1-49
 // 3 - Creo variabile con i tentativi andati a buon fine = gameMaxRange - numero bombe generate (16)
+
 
 // FASE LOGICA
 // Finchè il gioco non finisce: 
@@ -26,7 +28,6 @@
 
 // 1 - Chiedo all'utente di scegliere il livello di difficoltà da 1 a 3
 const userLevel = prompt('Inserisci un livello di difficoltà da 1 a 3');
-console.log('userLevel scelto da utente: ', userLevel);
 
 let gameMaxRange;
 
@@ -41,24 +42,17 @@ switch (userLevel) {
         gameMaxRange = 49;
         break;
     default:
-        gameMaxRange = 49;
+        gameMaxRange = 5;
         break;
 }
 
 
-// 2 - Genero 16 numeri casuali (bombe) nel range di numeri del livello di difficoltà scelto: 1 - gameMaxRange -> Level_1: 1-100; Level_2: 1-81; Level_3: 1-49
-const bombsNumber = 16;
-
+// 2 - Invoco la funzione genNumbRndPushArray() per generare 16 numeri casuali (bombe) nel range di numeri del livello di difficoltà scelto: 1 - gameMaxRange -> Level_1: 1-100; Level_2: 1-81; Level_3: 1-49 e li pusho nell'array 'bombsGenerated' SE non sono ancora presenti
+const bombsNumber = 1;
 const bombsGenerated = [];
 
-while (bombsGenerated.length < bombsNumber) {
-    const rndNumberBomb = getRndInteger(1, gameMaxRange);
-
-    if (!bombsGenerated.includes(rndNumberBomb)) {
-        bombsGenerated.push(rndNumberBomb);
-    }
-}
-
+genNumbRndPushArray(bombsNumber, 1, gameMaxRange, bombsGenerated);
+console.log(genNumbRndPushArray(bombsNumber, 1, gameMaxRange, bombsGenerated));
 
 // 3 - Creo variabile con il numero max di tentativi = gameMaxRange - numero bombe generate (16)
 let maxAttempts = gameMaxRange - bombsNumber;
@@ -96,4 +90,24 @@ if (bombsGenerated.includes(userNumber)) {
 // Genera un numero a caso tra min e max inclusi
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+
+// Genera quanti numeri casuali si vogliono 'howManyNumbers' in un range: minNumb - maxNumb
+// E li pusha in un array SE non è già presente
+// howManyNumbers -> quanti numeri generare
+// minNumber -> il numero minimo del range da cui generare il numero casuale
+// maxNumber -> il numero massimo del range da cui generare il numero casuale
+// arrayNumbers -> l'array in cui verranno pushati tutti i numeri generati e non ancora presenti
+// return: array con dati numerici
+function genNumbRndPushArray(howManyNumbers, minNumber, maxNumber, arrayNumbers) {
+    while (arrayNumbers.length < howManyNumbers) {
+        const rndNumber = Math.floor(Math.random() * (maxNumber - minNumber + 1) ) + minNumber;
+    
+        if (!arrayNumbers.includes(rndNumber)) {
+            arrayNumbers.push(rndNumber);
+        }
+    }
+    
+    return arrayNumbers;
 }
