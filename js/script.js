@@ -27,7 +27,11 @@
 
 
 // 1 - Chiedo all'utente di scegliere il livello di difficoltà da 1 a 3
-const userLevel = prompt('Inserisci un livello di difficoltà da 1 a 3');
+let userLevel = prompt('Inserisci un livello di difficoltà da 1 a 3');
+// FINCHE' non viene inserito un numero tra 1 e 3 continuo a chiedere di inserire il numero
+while (userLevel < 1 || userLevel > 3) {
+    userLevel = prompt('Inserisci un livello di difficoltà da 1 a 3');
+}
 
 let gameMaxRange;
 
@@ -52,7 +56,7 @@ const bombsNumber = 16; // For Test set: bombsNumber = 1; gameMaxRange = 5;
 const bombsGenerated = genRndNumbersArray(bombsNumber, 1, gameMaxRange);
 
 // DEBUG: Numeri Bomba
-console.log(bombsGenerated);
+console.log('Bombe generate: ', bombsGenerated);
 
 
 // 3 - Creo variabile con il numero max di tentativi = gameMaxRange - numero bombe generate (16)
