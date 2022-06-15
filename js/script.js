@@ -43,9 +43,6 @@ switch (userLevel) {
         gameMaxRange = 81;
         break;
     case '3':
-        gameMaxRange = 49;
-        break;
-    default:
         gameMaxRange = 49;  // For Test set: gameMaxRange = 5; bombsNumber = 1;
         break;
 }
